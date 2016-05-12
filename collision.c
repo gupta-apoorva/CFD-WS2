@@ -8,7 +8,7 @@ void doCollision(double *collideField, int *flagField,const double * const tau,i
   double density;
   double velocity[3];
   double feq[Q];
-  int currentCell[3];
+  double* currentCell;
   
   for (int z = 1; z<=xlength; z++)
       {
@@ -16,7 +16,7 @@ void doCollision(double *collideField, int *flagField,const double * const tau,i
           {
             for(int x = 1; x<=xlength; x++)
                {
-                  currentCell = {z,y,x};
+                  currentCell = collideField[Q*(z*(xlength+2)*(xlength+2) + y*(xlength+2) + x)];
                   computeDensity (currentCell,&density);
                   computeVelocity(currentCell,&density,velocity);
                   computeFeq(density,velocity,feq);
