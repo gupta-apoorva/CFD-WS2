@@ -29,7 +29,22 @@ int main(int argc, char *argv[]){
 
     initialiseFields(collideField, streamField, flagField, xlength);
 
+for(int t = 0; t < timesteps; t++)
+{
+  double *swap = NULL;
+  doStreaming(collideField,streamField,flagField,xlength);
+  swap = collideField;
+  collideField = streamField;
+  streamField = swap;
 
+  doCollision(collideField,streamField,flagField,xlength);
+  treatBoundary(collideField,flagField,velocityWall,xlength);
+
+  if(t % timestepsPerPlotting == 0)
+  {
+    writeVtkOutput(collideField,flagField,argv,t,xlength);
+  }
+}
  //printf("%d",Q);
 //printf("%f",LATTICEWEIGHTS[0]);
 
