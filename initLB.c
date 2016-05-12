@@ -1,7 +1,5 @@
 #include "initLB.h"
-
-int Q = 19;
-
+#include "LBDefinitions.h"
 
 int readParameters(int *xlength, double *tau, double *velocityWall, int *timesteps, int *timestepsPerPlotting, int argc, char *arg)
 {
@@ -71,15 +69,15 @@ void initialiseFields(double *collideField, double *streamField, int *flagField,
 
 // Initializing the collideField
 
-  for (x =0;x<(xlength+2);x++)
+  for (z =0;z<(xlength+2);z++)
      {
        for (y =0;y<(xlength+2);y++)
          {
-            for (z =0;z<(xlength+2);z++)
+            for (x =0;x<(xlength+2);x++)
              {
                  for( i =0 ; i<Q ; i++)
                   {
-                    collideField[Q*(z*(xlength+2)*(xlength+2) + y*(xlength+2) + x) + i] = 1;
+                    collideField[Q*(z*(xlength+2)*(xlength+2) + y*(xlength+2) + x) + i] =LATTICEWEIGHTS[i];
                   }
              }
          }
@@ -87,30 +85,19 @@ void initialiseFields(double *collideField, double *streamField, int *flagField,
 
 // Initializing the streamfield
 
-  for (x =0;x<(xlength+2);x++)
+  for (z =0;z<(xlength+2);z++)
      {
        for (y =0;y<(xlength+2);y++)
          {
-            for (z =0;z<(xlength+2);z++)
+            for (x =0;x<(xlength+2);x++)
              {
                  for( i =0 ; i<Q ; i++)
                   {
-                    streamField[Q*(z*(xlength+2)*(xlength+2) + y*(xlength+2) + x) + i] = 1;
+                    streamField[Q*(z*(xlength+2)*(xlength+2) + y*(xlength+2) + x) + i] = LATTICEWEIGHTS[i];
                   }
              }
          }
       }
-
-
-
-
-
-
-
-
-
-
-
 
 }
 

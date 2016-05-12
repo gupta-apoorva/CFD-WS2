@@ -1,15 +1,17 @@
-#ifndef _MAIN_C_
+#ifndef _MAIN_C_st
 #define _MAIN_C_
 
 #include "collision.h"
 #include "streaming.h"
+#include "LBDefinitions.h"
 #include "initLB.h"
 #include "visualLB.h"
 #include "boundary.h"
 
-int main(int argc, char *argv[]){
-    
-    int Q = 19;
+
+
+int main(int argc, char *argv[]){  
+  
     int xlength;                       /* reads domain size. Parameter name: "xlength" */
     double tau;                        /* relaxation parameter tau. Parameter name: "tau" */
     double velocityWall;               /* velocity of the lid. Parameter name: "characteristicvelocity" */
@@ -20,7 +22,6 @@ int main(int argc, char *argv[]){
     int* flagField;
 
     readParameters(&xlength, &tau, &velocityWall, &timesteps, &timestepsPerPlotting, argc, argv[1]);
-    //printf("%d\n",xlength);
     
     collideField = (double*) malloc(Q*(xlength+2)*(xlength+2)*(xlength+2)*sizeof(double));
     streamField = (double*) malloc(Q*(xlength+2)*(xlength+2)*(xlength+2)*sizeof(double));
@@ -28,6 +29,20 @@ int main(int argc, char *argv[]){
 
     initialiseFields(collideField, streamField, flagField, xlength);
 
+
+ //printf("%d",Q);
+//printf("%f",LATTICEWEIGHTS[0]);
+
+/*    for( int i =0 ; i<Q ; i++)
+                  {
+
+                     
+                    printf("%f",LATTICEWEIGHTS[i]);
+printf("  ");                
+  }
+ */   
+    
+/*
   for (int x =0;x<(xlength+2);x++)
      {
        for (int y =0;y<(xlength+2);y++)
@@ -36,6 +51,8 @@ int main(int argc, char *argv[]){
              {
                  for( int i =0 ; i<Q ; i++)
                   {
+
+                      //printf("%d",5);
                     printf("%f",collideField[Q*(z*(xlength+2)*(xlength+2) + y*(xlength+2) + x) + i]);
                   }
             
@@ -44,7 +61,7 @@ int main(int argc, char *argv[]){
          }
       printf("\n");
       }
-
+*/
     free(collideField);
     free (streamField);
     free (flagField);
@@ -52,6 +69,7 @@ int main(int argc, char *argv[]){
 }
 
 #endif
+
 
 
 
