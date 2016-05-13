@@ -3,11 +3,11 @@
 
 void computeDensity(const double *const currentCell, double *density)
 {
-          density = 0;
-          for (int i = 0; i<19; i++)
-            {
-                 *density = *density + (*(currentCell + i));
-            }
+  *density = 0;
+  for (int i = 0; i<19; i++)
+    {
+         *density = *density + (*(currentCell + i));
+    }
 }
 
 void computeVelocity(const double * const currentCell, const double * const density, double *velocity)

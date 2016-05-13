@@ -28,7 +28,7 @@ int main(int argc, char *argv[]){
     flagField = (int*) malloc((xlength+2)*(xlength+2)*(xlength+2)*sizeof(int));
 
     initialiseFields(collideField, streamField, flagField, xlength);
-/*
+
     for(int t = 0; t < timesteps; t++)
       {
         double *swap = NULL;
@@ -37,15 +37,15 @@ int main(int argc, char *argv[]){
         collideField = streamField;
         streamField = swap;
 
-        doCollision(collideField,streamField,flagField,xlength);
-        treatBoundary(collideField,flagField,velocityWall,xlength);
+        //doCollision(collideField,flagField,&tau,xlength);
+        treatBoundary(collideField,flagField,&velocityWall,xlength);
 
-        if(t % timestepsPerPlotting == 0)
+       /* if(t % timestepsPerPlotting == 0)
            {
               writeVtkOutput(collideField,flagField,argv,t,xlength);
-           }
+           }*/
       }
-*/
+
  //printf("%d",Q);
 //printf("%f",LATTICEWEIGHTS[0]);
 
