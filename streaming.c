@@ -1,4 +1,5 @@
 #include "streaming.h"
+#include "LBDefinitions.h"
 
 void doStreaming(double *collideField, double *streamField,int *flagField,int xlength)
 {
@@ -11,7 +12,7 @@ void doStreaming(double *collideField, double *streamField,int *flagField,int xl
                   for (int i = 0; i<Q; i++)
                      {
                         //if (flagField[(z-LATTICEVELOCITIES[i][0])*(xlength+2)*(xlength+2) + (y-LATTICEVELOCITIES[i][1])*(xlength+2) + (x-LATTICEVELOCITIES[i][2])] == 0)
-                        streamField[Q*(z*(xlength+2)*(xlength+2) + y*(xlength+2) + x) + i] = collideField[Q*((z-LATTICEVELOCITIES[i][0])*(xlength+2)*(xlength+2) + (y-LATTICEVELOCITIES[i][1])*(xlength+2) + (x-LATTICEVELOCITIES[i][2])) + i] ;
+                        streamField[Q*(z*(xlength+2)*(xlength+2) + y*(xlength+2) + x) + i] = collideField[Q*((z+LATTICEVELOCITIES[i][0])*(xlength+2)*(xlength+2) + (y+ LATTICEVELOCITIES[i][1])*(xlength+2) + (x+LATTICEVELOCITIES[i][2])) + i] ;
                       }
                 }             
            }

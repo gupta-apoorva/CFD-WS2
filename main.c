@@ -28,7 +28,7 @@ int main(int argc, char *argv[]){
     flagField = (int*) malloc((xlength+2)*(xlength+2)*(xlength+2)*sizeof(int));
 
     initialiseFields(collideField, streamField, flagField, xlength);
-
+/*
     for(int t = 0; t < timesteps; t++)
       {
         double *swap = NULL;
@@ -45,7 +45,7 @@ int main(int argc, char *argv[]){
               writeVtkOutput(collideField,flagField,argv,t,xlength);
            }
       }
-
+*/
  //printf("%d",Q);
 //printf("%f",LATTICEWEIGHTS[0]);
 
