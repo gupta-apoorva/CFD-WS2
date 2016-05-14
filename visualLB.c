@@ -54,9 +54,9 @@ for (k = 1; k<=xlength; k++){
 	
   fprintf(fp,"\n");
   fprintf(fp, "VECTORS velocity float\n");
-  for(k = 0; k<=xlength+2; k++){
-	for(j = 0; j <= xlength+2; j++) {
-    	for(i = 0; i <= xlength+2; i++) {
+  for(k = 1; k<=xlength; k++){
+	for(j = 1; j <= xlength; j++) {
+    	for(i = 1; i <= xlength; i++) {
     		int index = k*(xlength+2)*(xlength+2) + j*(xlength+2) + i;
     		fprintf(fp, "%f %f %f \n", *(Vx+index), *(Vy+index), *(Vz+index));
     		
@@ -70,7 +70,7 @@ for (k = 1; k<=xlength; k++){
   fprintf(fp, "LOOKUP_TABLE default \n");
   for (k = 1; k<=xlength; k++){
   	for(j = 1; j <=xlength; j++) {
-    	for(i = 1; i < xlength; i++) {
+    	for(i = 1; i <= xlength; i++) {
     		int index = k*(xlength+2)*(xlength+2) + j*(xlength+2) + i;
       		fprintf(fp, "%f\n", *(dencity+index) );
     }

@@ -57,10 +57,10 @@ int main(int argc, char *argv[]){
         doCollision(collideField,flagField,&tau,xlength);                       // Doing the collision step of lattice boltzmann.
         treatBoundary(collideField,flagField,&velocityWall,xlength);            // Updating the boundary values in collide field based on the type of boundary. 
 
-       // if(t % timestepsPerPlotting == 0)
-         //  {
-           //   writeVtkOutput(collideField,flagField,argv[0],t,xlength);
-           //}
+        if(t % timestepsPerPlotting == 0)
+           {
+              writeVtkOutput(collideField,flagField,argv[1],t,xlength);
+           }
       }
 
  //printf("%d",Q);
