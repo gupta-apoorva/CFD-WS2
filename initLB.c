@@ -4,8 +4,8 @@
 int readParameters(int *xlength, double *tau, double *velocityWall, int *timesteps, int *timestepsPerPlotting, int argc, char *arg)
 {
 
-if (argc==2)
-{
+if (argc==2)                                                                // Making sure that only 2 arguments are provided...one being the filename and other being the file
+{                                                                           // from which the data has to be read.
 READ_INT    ( arg, *xlength );
 READ_DOUBLE ( arg, *tau );
 READ_DOUBLE( arg, *velocityWall );
@@ -31,11 +31,9 @@ void initialiseFields(double *collideField, double *streamField, int *flagField,
  
 // Initializing the flag field
 
-
-
-  for (x =0;x<(xlength+2);x++)
-     {
-       for (y =0;y<(xlength+2);y++)
+  for (x =0;x<(xlength+2);x++)                                                   // First initializing the entire flagfield with 1 (NO SLIP) then in the next loop initializing 
+     {                                                                           // all the interior cells with 0 (fluid) and in the last loop initializing all the moving wall 
+       for (y =0;y<(xlength+2);y++)                                              // cells with the value 2 (moving wall).
          {
             for (z =0;z<(xlength+2);z++)
              {
@@ -43,7 +41,7 @@ void initialiseFields(double *collideField, double *streamField, int *flagField,
              }
          }
       }
-                                                            // FLUID = 0, NO_SLIp = 1 , MOVING_WALL = 2
+                                                            // FLUID = 0, NO_SLIP = 1 , MOVING_WALL = 2
   for (z =1;z<(xlength+1);z++)
      {
        for (y =1;y<(xlength+1);y++)
@@ -67,7 +65,7 @@ void initialiseFields(double *collideField, double *streamField, int *flagField,
       --z;
       }
 
-// Initializing the collideField
+// Initializing the collideField with the latticeweights
 
   for (z =0;z<(xlength+2);z++)
      {
@@ -83,7 +81,7 @@ void initialiseFields(double *collideField, double *streamField, int *flagField,
          }
       }
 
-// Initializing the streamfield
+// Initializing the streamfield with the lattice weights
 
   for (z =0;z<(xlength+2);z++)
      {

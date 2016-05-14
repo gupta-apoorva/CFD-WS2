@@ -15,21 +15,21 @@ void computePostCollisionDistributions(double *currentCell, const double * const
 
 }
 
-void doCollision(double *collideField, int *flagField,const double * const tau,int xlength)
+void doCollision(double *collideField, int *flagField,const double * const tau,int xlength)             // Starting the collide step of lattice boltzmann
 {
 
   
-  for (int z = 1; z<=xlength; z++)
+  for (int z = 1; z<=xlength; z++)                                                                      // Looping only on the fluid particles and not on the boundary.
       {
         for (int y = 1; y<=xlength; y++)
           {
             for(int x = 1; x<=xlength; x++)
                {
-                  currentCell = &collideField[Q*(z*(xlength+2)*(xlength+2) + y*(xlength+2) + x)];
-                  computeDensity (currentCell,&density);
-                  computeVelocity(currentCell,&density,velocity);
-                  computeFeq(&density,velocity,feq);
-                  computePostCollisionDistributions(currentCell, tau, feq);
+                  currentCell = &collideField[Q*(z*(xlength+2)*(xlength+2) + y*(xlength+2) + x)];       // Pointing the current cell to the start of the probability distribution
+                  computeDensity (currentCell,&density);                                                // function of that cell...after that calculating density, velocity and 
+                  computeVelocity(currentCell,&density,velocity);                                       // the equilibrium pdf of that cell and based on that updating the value 
+                  computeFeq(&density,velocity,feq);                                                    // in the collidefield in the computepostcollisiondistribution function.
+                  computePostCollisionDistributions(currentCell, tau, feq);                             // all other functions are implemented in collision.c
                }
            }
         }

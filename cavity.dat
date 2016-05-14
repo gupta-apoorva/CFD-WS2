@@ -6,8 +6,8 @@ xlength		3
 #--------------------------------------------
 #               time steps
 #-------------------------------------------- 
-timestepsPerPlotting    100
-timesteps	500
+timestepsPerPlotting    1
+timesteps	2
 tau	 	0.5
 
 #--------------------------------------------
