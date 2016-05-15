@@ -37,6 +37,7 @@ for (k = 1; k<=xlength; k++){
     			*(Vx+ index) = *(Vx+index) + collideField[19*(index) + p]*LATTICEVELOCITIES[p][0];
     			*(Vy+ index) = *(Vy+index) + collideField[19*(index) + p]*LATTICEVELOCITIES[p][1];
     			*(Vz+ index) = *(Vz+index) + collideField[19*(index) + p]*LATTICEVELOCITIES[p][2];
+    			//printf("%f\n", collideField[19*(index) + p]*LATTICEVELOCITIES[p][2]);
     		}
     		*(Vx+index) = *(Vx+index)/(*(dencity + index));
     		*(Vy+index) = *(Vy+index)/(*(dencity + index));
@@ -50,7 +51,7 @@ for (k = 1; k<=xlength; k++){
   write_vtkHeader( fp, xlength);
   write_vtkPointCoordinates(fp, xlength);
 
-  fprintf(fp,"POINT_DATA %i \n", (xlength+2)*(xlength+2)*(xlength+2) );
+  fprintf(fp,"POINT_DATA %i \n", (xlength)*(xlength)*(xlength) );
 	
   fprintf(fp,"\n");
   fprintf(fp, "VECTORS velocity float\n");
@@ -65,8 +66,8 @@ for (k = 1; k<=xlength; k++){
 }
 
   fprintf(fp,"\n");
-  fprintf(fp,"CELL_DATA %i \n", ((xlength+2)*(xlength+2)*(xlength+2)));
-  fprintf(fp, "SCALARS dencity float 1 \n"); 
+  fprintf(fp,"\n");
+  fprintf(fp, "SCALARS dencity float \n"); 
   fprintf(fp, "LOOKUP_TABLE default \n");
   for (k = 1; k<=xlength; k++){
   	for(j = 1; j <=xlength; j++) {
@@ -104,8 +105,8 @@ void write_vtkHeader( FILE *fp, int xlength) {
   fprintf(fp,"ASCII\n");
   fprintf(fp,"\n");	
   fprintf(fp,"DATASET STRUCTURED_GRID\n");
-  fprintf(fp,"DIMENSIONS  %i %i %i 1 \n", xlength+2, xlength+2, xlength+2);
-  fprintf(fp,"POINTS %i float\n", (xlength+2)*(xlength+2)*(xlength+2));
+  fprintf(fp,"DIMENSIONS  %i %i %i \n", xlength, xlength, xlength);
+  fprintf(fp,"POINTS %i float\n", xlength * xlength * xlength);
   fprintf(fp,"\n");
 }
 
