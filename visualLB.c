@@ -10,7 +10,7 @@ void write_vtkHeader( FILE *fp, int xlength);
 void writeVtkOutput(const double * const collideField, const int * const flagField, const char * filename, unsigned int t, int xlength) {
 
 int i,j,k;
-double* dencity = (double*) calloc((xlength+2)*(xlength+2)*(xlength+2),sizeof(double)) ;
+double* density = (double*) calloc((xlength+2)*(xlength+2)*(xlength+2),sizeof(double)) ;
 double* Vx = (double*) calloc((xlength+2)*(xlength+2)*(xlength+2),sizeof(double)) ;
 double* Vy = (double*) calloc((xlength+2)*(xlength+2)*(xlength+2),sizeof(double)) ;
 double* Vz = (double*) calloc((xlength+2)*(xlength+2)*(xlength+2),sizeof(double)) ;
@@ -25,7 +25,7 @@ double* Vz = (double*) calloc((xlength+2)*(xlength+2)*(xlength+2),sizeof(double)
     ERROR( szBuff );
     return;
   }
-  //dencity calculation
+  //density calculation
 
 //Velocity calculations
 for (k = 1; k<=xlength; k++){
@@ -33,14 +33,14 @@ for (k = 1; k<=xlength; k++){
     	for(i = 1; i <= xlength; i++) {
     		int index = k*(xlength+2)*(xlength+2) + j*(xlength+2) + i;
     		for(int p = 0; p < 19; p++){
-    			*(dencity + index) = *(dencity + index) + collideField[19*(index) + p];
+    			*(density + index) = *(density + index) + collideField[19*(index) + p];
     			*(Vx+ index) = *(Vx+index) + collideField[19*(index) + p]*LATTICEVELOCITIES[p][0];
     			*(Vy+ index) = *(Vy+index) + collideField[19*(index) + p]*LATTICEVELOCITIES[p][1];
     			*(Vz+ index) = *(Vz+index) + collideField[19*(index) + p]*LATTICEVELOCITIES[p][2];
     		}
-    		*(Vx+index) = *(Vx+index)/(*(dencity + index));
-    		*(Vy+index) = *(Vy+index)/(*(dencity + index));
-    		*(Vz+index) = *(Vz+index)/(*(dencity + index));
+    		*(Vx+index) = *(Vx+index)/(*(density + index));
+    		*(Vy+index) = *(Vy+index)/(*(density + index));
+    		*(Vz+index) = *(Vz+index)/(*(density + index));
     	}
     }
 }
@@ -50,7 +50,7 @@ for (k = 1; k<=xlength; k++){
   write_vtkHeader( fp, xlength);
   write_vtkPointCoordinates(fp, xlength);
 
-  fprintf(fp,"POINT_DATA %i \n", (xlength+2)*(xlength+2)*(xlength+2) );
+  fprintf(fp,"POINT_DATA %i \n", (xlength)*(xlength)*(xlength) );
 	
   fprintf(fp,"\n");
   fprintf(fp, "VECTORS velocity float\n");
@@ -63,27 +63,27 @@ for (k = 1; k<=xlength; k++){
     }
   }
 }
-
+/*
   fprintf(fp,"\n");
-  fprintf(fp,"CELL_DATA %i \n", ((xlength+2)*(xlength+2)*(xlength+2)));
-  fprintf(fp, "SCALARS dencity float 1 \n"); 
+  fprintf(fp,"CELL_DATA %i \n", ((xlength)*(xlength)*(xlength)));
+  fprintf(fp, "SCALARS density float 1 \n"); 
   fprintf(fp, "LOOKUP_TABLE default \n");
   for (k = 1; k<=xlength; k++){
   	for(j = 1; j <=xlength; j++) {
     	for(i = 1; i <= xlength; i++) {
     		int index = k*(xlength+2)*(xlength+2) + j*(xlength+2) + i;
-      		fprintf(fp, "%f\n", *(dencity+index) );
+      		fprintf(fp, "%f\n", *(density+index) );
     }
   }
 }
-
+*/
   if( fclose(fp) )
   {
     char szBuff[80];
     sprintf( szBuff, "Failed to close %s", szFileName );
     ERROR( szBuff );
   }
-  free(dencity);
+  free(density);
   free(Vx);
   free(Vy);
   free(Vz);
@@ -104,8 +104,8 @@ void write_vtkHeader( FILE *fp, int xlength) {
   fprintf(fp,"ASCII\n");
   fprintf(fp,"\n");	
   fprintf(fp,"DATASET STRUCTURED_GRID\n");
-  fprintf(fp,"DIMENSIONS  %i %i %i 1 \n", xlength+2, xlength+2, xlength+2);
-  fprintf(fp,"POINTS %i float\n", (xlength+2)*(xlength+2)*(xlength+2));
+  fprintf(fp,"DIMENSIONS  %i %i %i \n", xlength, xlength, xlength);
+  fprintf(fp,"POINTS %i float\n", (xlength)*(xlength)*(xlength));
   fprintf(fp,"\n");
 }
 

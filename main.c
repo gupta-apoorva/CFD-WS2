@@ -29,22 +29,7 @@ int main(int argc, char *argv[]){
 
     initialiseFields(collideField, streamField, flagField, xlength);             // Initializing the collidefield, streamfield and flagfield with the function implemented 
                                                                                  // in initLB
- /* for (int x =0;x<(xlength+2);x++)
-     {
-       for (int y =0;y<(xlength+2);y++)
-         {
-            for (int z =0;z<(xlength+2);z++)
-             {
-                 for( int i =0 ; i<Q ; i++)
-                  {
-
-                      //printf("%d",5);
-                    printf("%f",collideField[Q*(z*(xlength+2)*(xlength+2) + y*(xlength+2) + x) + i]);
-                  }
-             printf("\n");
-             }
-         }
-      }
+ /* 
 */
    for(int t = 0; t < timesteps; t++)                                           // starting the time stepping loop to successively update the values in each cell.
       {
@@ -54,26 +39,54 @@ int main(int argc, char *argv[]){
         collideField = streamField;
         streamField = swap;
 
-        doCollision(collideField,flagField,&tau,xlength);                       // Doing the collision step of lattice boltzmann.
+        doCollision(collideField,flagField,&tau,xlength); 
+
+for (int z =0;z<(xlength+2);z++)
+     {
+       for (int y =0;y<(xlength+2);y++)
+         {
+            for (int x =0;x<(xlength+2);x++)
+             {
+                 for( int i =0 ; i<Q ; i++)
+                  {
+                    printf("%f",collideField[Q*(z*(xlength+2)*(xlength+2) + y*(xlength+2) + x) + i]);
+                  }
+             printf("\n");
+             }
+         }
+      }
+           
+             printf("\n");
+                                                                                // Doing the collision step of lattice boltzmann.
         treatBoundary(collideField,flagField,&velocityWall,xlength);            // Updating the boundary values in collide field based on the type of boundary. 
 
-        if(t % timestepsPerPlotting == 0)
-           {
-              writeVtkOutput(collideField,flagField,argv[1],t,xlength);
-           }
+for (int z =0;z<(xlength+2);z++)
+     {
+       for (int y =0;y<(xlength+2);y++)
+         {
+            for (int x =0;x<(xlength+2);x++)
+             {
+                 for( int i =0 ; i<Q ; i++)
+                  {
+                    printf("%f",collideField[Q*(z*(xlength+2)*(xlength+2) + y*(xlength+2) + x) + i]);
+                  }
+             printf("\n");
+             }
+         }
       }
 
- //printf("%d",Q);
-//printf("%f",LATTICEWEIGHTS[0]);
 
-/*    for( int i =0 ; i<Q ; i++)
-                  {
 
-                     
-                    printf("%f",LATTICEWEIGHTS[i]);
-printf("  ");                
-  }
- */   
+
+
+
+
+
+       /* if(t % timestepsPerPlotting == 0)
+           {
+              writeVtkOutput(collideField,flagField,argv[0],t,xlength);
+           }*/
+      }  
     free(collideField);                                                          // Freeing the space allocated on heap for collidefield  streamfield and flagfield.
     free (streamField);
     free (flagField);
