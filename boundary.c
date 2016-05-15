@@ -12,7 +12,7 @@ void treatBoundary(double *collideField, int* flagField, const double * const ve
                {
                   for (i=0;i<19;i++)
                     {
-                      if ( (z+LATTICEVELOCITIES[i][2])>=0 && (y+LATTICEVELOCITIES[i][1])>=0 && (x+LATTICEVELOCITIES[i][0])>=0 && (z+LATTICEVELOCITIES[i][2])<=xlength+1 && (y+LATTICEVELOCITIES[i][1])<=xlength+1 && (x+LATTICEVELOCITIES[i][0])<=xlength+1 && flagField[(z+LATTICEVELOCITIES[i][2])*(xlength+2)*(xlength+2) + (y+LATTICEVELOCITIES[i][1])*(xlength+2) + x] == 0)
+                       if ( (z+LATTICEVELOCITIES[i][2])>=0 && (y+LATTICEVELOCITIES[i][1])>=0 && (x+LATTICEVELOCITIES[i][0])>=0)
                           {
                              collideField[Q*(z*(xlength+2)*(xlength+2) + y*(xlength+2) + x) + 18-i] = collideField[Q*((z+LATTICEVELOCITIES[i][2])*(xlength+2)*(xlength+2) + (y+LATTICEVELOCITIES[i][1])*(xlength+2) + (x+LATTICEVELOCITIES[i][0])) + i];
                           }
@@ -27,7 +27,7 @@ void treatBoundary(double *collideField, int* flagField, const double * const ve
                {
                   for (i=0;i<19;i++)
                     {
-                       if ( (z+LATTICEVELOCITIES[i][2])>=0 && (y+LATTICEVELOCITIES[i][1])>=0 && (x+LATTICEVELOCITIES[i][0])>=0 && (z+LATTICEVELOCITIES[i][2])<=xlength+1 && (y+LATTICEVELOCITIES[i][1])<=xlength+1 && (x+LATTICEVELOCITIES[i][0])<=xlength+1 && flagField[(z+LATTICEVELOCITIES[i][2])*(xlength+2)*(xlength+2) + (y+LATTICEVELOCITIES[i][1])*(xlength+2) + x] == 0)
+                       if ( (z+LATTICEVELOCITIES[i][2])>=0 && (y+LATTICEVELOCITIES[i][1])>=0 && (x+LATTICEVELOCITIES[i][0])>=0)
                           {
                              collideField[Q*(z*(xlength+2)*(xlength+2) + y*(xlength+2) + x) + 18-i] = collideField[Q*((z+LATTICEVELOCITIES[i][2])*(xlength+2)*(xlength+2) + (y+LATTICEVELOCITIES[i][1])*(xlength+2) + (x+LATTICEVELOCITIES[i][0])) + i];
                           }
@@ -42,7 +42,7 @@ void treatBoundary(double *collideField, int* flagField, const double * const ve
                {
                   for (i=0;i<19;i++)
                     {
-                       if ( (z+LATTICEVELOCITIES[i][2])>=0 && (y+LATTICEVELOCITIES[i][1])>=0 && (x+LATTICEVELOCITIES[i][0])>=0 && (z+LATTICEVELOCITIES[i][2])<=xlength+1 && (y+LATTICEVELOCITIES[i][1])<=xlength+1 && (x+LATTICEVELOCITIES[i][0])<=xlength+1 && flagField[(z+LATTICEVELOCITIES[i][2])*(xlength+2)*(xlength+2) + (y+LATTICEVELOCITIES[i][1])*(xlength+2) + x] == 0)
+                       if ( (z+LATTICEVELOCITIES[i][2])>=0 && (y+LATTICEVELOCITIES[i][1])>=0 && (x+LATTICEVELOCITIES[i][0])>=0)
                           {
                              collideField[Q*(z*(xlength+2)*(xlength+2) + y*(xlength+2) + x) + 18-i] = collideField[Q*((z+LATTICEVELOCITIES[i][2])*(xlength+2)*(xlength+2) + (y+LATTICEVELOCITIES[i][1])*(xlength+2) + (x+LATTICEVELOCITIES[i][0])) + i];
                           }
@@ -57,7 +57,7 @@ void treatBoundary(double *collideField, int* flagField, const double * const ve
                {
                   for (i=0;i<19;i++)
                     {
-                       if ( (z+LATTICEVELOCITIES[i][2])>=0 && (y+LATTICEVELOCITIES[i][1])>=0 && (x+LATTICEVELOCITIES[i][0])>=0 && (z+LATTICEVELOCITIES[i][2])<=xlength+1 && (y+LATTICEVELOCITIES[i][1])<=xlength+1 && (x+LATTICEVELOCITIES[i][0])<=xlength+1 && flagField[(z+LATTICEVELOCITIES[i][2])*(xlength+2)*(xlength+2) + (y+LATTICEVELOCITIES[i][1])*(xlength+2) + x] == 0)
+                       if ( (z+LATTICEVELOCITIES[i][2])>=0 && (y+LATTICEVELOCITIES[i][1])>=0 && (x+LATTICEVELOCITIES[i][0])>=0)
                           {
                              collideField[Q*(z*(xlength+2)*(xlength+2) + y*(xlength+2) + x) + 18-i] = collideField[Q*((z+LATTICEVELOCITIES[i][2])*(xlength+2)*(xlength+2) + (y+LATTICEVELOCITIES[i][1])*(xlength+2) + (x+LATTICEVELOCITIES[i][0])) + i];
                           }
@@ -72,13 +72,13 @@ void treatBoundary(double *collideField, int* flagField, const double * const ve
                {
                   for (i=0;i<19;i++)
                     {
-                       if ( (z+LATTICEVELOCITIES[i][2])>=0 && (y+LATTICEVELOCITIES[i][1])>=0 && (x+LATTICEVELOCITIES[i][0])>=0 && (z+LATTICEVELOCITIES[i][2])<=xlength+1 && (y+LATTICEVELOCITIES[i][1])<=xlength+1 && (x+LATTICEVELOCITIES[i][0])<=xlength+1 && flagField[(z+LATTICEVELOCITIES[i][2])*(xlength+2)*(xlength+2) + (y+LATTICEVELOCITIES[i][1])*(xlength+2) + x] == 0)
+                       if ( (z+LATTICEVELOCITIES[i][2])>=0 && (y+LATTICEVELOCITIES[i][1])>=0 && (x+LATTICEVELOCITIES[i][0])>=0)
                           {
                              collideField[Q*(z*(xlength+2)*(xlength+2) + y*(xlength+2) + x) + 18-i] = collideField[Q*((z+LATTICEVELOCITIES[i][2])*(xlength+2)*(xlength+2) + (y+LATTICEVELOCITIES[i][1])*(xlength+2) + (x+LATTICEVELOCITIES[i][0])) + i];
                           }
                     }
                }
-           }  
+           }   
 
      z = xlength+1;
         for (y = 0; y< xlength+2; y++)
@@ -87,15 +87,18 @@ void treatBoundary(double *collideField, int* flagField, const double * const ve
                {
                   for (i=0;i<19;i++)
                     {
-                       if ( (z+LATTICEVELOCITIES[i][2])>=0 && (y+LATTICEVELOCITIES[i][1])>=0 && (x+LATTICEVELOCITIES[i][0])>=0 && (z+LATTICEVELOCITIES[i][2])<=xlength+1 && (y+LATTICEVELOCITIES[i][1])<=xlength+1 && (x+LATTICEVELOCITIES[i][0])<=xlength+1 && flagField[(z+LATTICEVELOCITIES[i][2])*(xlength+2)*(xlength+2) + (y+LATTICEVELOCITIES[i][1])*(xlength+2) + x] == 0)  
+                       if ( (z+LATTICEVELOCITIES[i][2])>=0 && (y+LATTICEVELOCITIES[i][1])>=0 && (x+LATTICEVELOCITIES[i][0])>=0)  
                           {    
                              int cell_num = Q*((z+LATTICEVELOCITIES[i][2])*(xlength+2)*(xlength+2) + (y+LATTICEVELOCITIES[i][1])*(xlength+2) + (x+LATTICEVELOCITIES[i][0]));
                              double density = 0;
                              for (int n=0;n<19;n++)
                                  {
                                      density = density + collideField[cell_num + n];
-                                 }                             
+                                 }
+                              
                              collideField[Q*(z*(xlength+2)*(xlength+2) + y*(xlength+2) + x) + 18-i] = collideField[cell_num + i] + 2*LATTICEWEIGHTS[i]*density*LATTICEVELOCITIES[i][0]*(*velocityWall)/(C_S*C_S);
+
+
 
                            }
                     }
