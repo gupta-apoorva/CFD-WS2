@@ -4,7 +4,7 @@
 void treatBoundary(double *collideField, int* flagField, const double * const velocityWall, int xlength)
 {
      int x,y,z,i;
-      
+  
         z = 0;
         for (y = 0; y< xlength+2; y++)
           {
@@ -80,7 +80,6 @@ void treatBoundary(double *collideField, int* flagField, const double * const ve
                }
            }  
 
-
      z = xlength+1;
         for (y = 0; y< xlength+2; y++)
           {
@@ -101,6 +100,7 @@ void treatBoundary(double *collideField, int* flagField, const double * const ve
                            }
                     }
                }
-           }       
+           }  
+
 }
 
