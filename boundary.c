@@ -6,9 +6,10 @@ void treatBoundary(double *collideField, int* flagField, const double * const ve
      int x,y,z,i;
   
         z = 0;
-        for (y = 0; y< xlength+2; y++)
-          {
-            for(x = 0; x< xlength+2; x++)
+        for (y = 0; y< xlength+2; y++)                                  //Assigning the pdf to the cells lying on the z=0 plane, which represent the no slip condition i.e 1
+                                                                        // The pdf is assigned only those cells which are useful  in the dostreaming step. 
+          {                                                             
+            for(x = 0; x< xlength+2; x++)                               
                {
                   for (i=0;i<19;i++)
                     {
@@ -20,7 +21,8 @@ void treatBoundary(double *collideField, int* flagField, const double * const ve
                }
            }   
 
-        y = 0;
+        y = 0;                                                          //Assigning the pdf to the cells lying on the y=0 plane, which represent the no slip condition i.e 1
+                                                                        // The pdf is assigned only those cells which are useful  in the dostreaming step.
         for (z = 0; z< xlength+2; z++)
           {
             for(x = 0; x< xlength+2; x++)
@@ -35,7 +37,8 @@ void treatBoundary(double *collideField, int* flagField, const double * const ve
                }
            }   
 
-     y = xlength+1;
+     y = xlength+1;                                                 //Assigning the pdf to the cells lying on the y=xlength+1 plane, which represent the no slip condition i.e 1
+                                                                        // The pdf is assigned only those cells which are useful  in the dostreaming step.
         for (z = 0; z< xlength+2; z++)
           {
             for(x = 0; x< xlength+2; x++)
@@ -50,7 +53,8 @@ void treatBoundary(double *collideField, int* flagField, const double * const ve
                }
            }   
 
-     x = 0;
+     x = 0;                                                              //Assigning the pdf to the cells lying on the x=0 plane, which represent the no slip condition i.e 1
+                                                                        // The pdf is assigned only those cells which are useful  in the dostreaming step.
         for (z = 0; z< xlength+2; z++)
           {
             for(y = 0; y< xlength+2; y++)
@@ -65,7 +69,8 @@ void treatBoundary(double *collideField, int* flagField, const double * const ve
                }
            }   
 
-     x = xlength+1;
+     x = xlength+1;                                                    //Assigning the pdf to the cells lying on the x=xlength+1 plane, which represent the no slip condition 
+                                                                        // i.e 1. The pdf is assigned only those cells which are useful  in the dostreaming step.
         for (z = 0; z< xlength+2; z++)
           {
             for(y = 0; y< xlength+2; y++)
@@ -80,8 +85,9 @@ void treatBoundary(double *collideField, int* flagField, const double * const ve
                }
            }  
 
-     z = xlength+1;
-        for (y = 0; y< xlength+2; y++)
+     z = xlength+1;                                                      //Assigning the pdf to the cells lying on the z=xlength+1 plane, which represent the moving wall 
+                                                                         // i.e flagfield value 2       
+        for (y = 0; y< xlength+2; y++)                                   // The pdf is assigned only those cells which are useful  in the dostreaming step.
           {
             for(x = 0; x< xlength+2; x++)
                {

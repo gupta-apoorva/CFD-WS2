@@ -4,93 +4,10 @@
 #include <stdlib.h>
 #include <stdio.h>
 
-void write_vtkPointCoordinates( FILE *fp, int xlength );
-void write_vtkHeader( FILE *fp, int xlength);
-
-void writeVtkOutput(const double * const collideField, const int * const flagField, const char * filename, unsigned int t, int xlength) {
-
-int i,j,k;
-double* dencity = (double*) calloc((xlength+2)*(xlength+2)*(xlength+2),sizeof(double)) ;
-double* Vx = (double*) calloc((xlength+2)*(xlength+2)*(xlength+2),sizeof(double)) ;
-double* Vy = (double*) calloc((xlength+2)*(xlength+2)*(xlength+2),sizeof(double)) ;
-double* Vz = (double*) calloc((xlength+2)*(xlength+2)*(xlength+2),sizeof(double)) ;
-  char szFileName[80];
-  FILE *fp=NULL;
-  sprintf( szFileName, "%s.%i.vtk", filename, t );
-  fp = fopen( szFileName, "w");
-  if( fp == NULL )		       
-  {
-    char szBuff[80];
-    sprintf( szBuff, "Failed to open %s", szFileName );
-    ERROR( szBuff );
-    return;
-  }
-  //dencity calculation
-
-//Velocity calculations
-for (k = 1; k<=xlength; k++){
-  	for(j = 1; j <=xlength; j++) {
-    	for(i = 1; i <= xlength; i++) {
-    		int index = k*(xlength+2)*(xlength+2) + j*(xlength+2) + i;
-    		for(int p = 0; p < 19; p++){
-    			*(dencity + index) = *(dencity + index) + collideField[19*(index) + p];
-    			*(Vx+ index) = *(Vx+index) + collideField[19*(index) + p]*LATTICEVELOCITIES[p][0];
-    			*(Vy+ index) = *(Vy+index) + collideField[19*(index) + p]*LATTICEVELOCITIES[p][1];
-    			*(Vz+ index) = *(Vz+index) + collideField[19*(index) + p]*LATTICEVELOCITIES[p][2];
-    			//printf("%f\n", collideField[19*(index) + p]*LATTICEVELOCITIES[p][2]);
-    		}
-    		*(Vx+index) = *(Vx+index)/(*(dencity + index));
-    		*(Vy+index) = *(Vy+index)/(*(dencity + index));
-    		*(Vz+index) = *(Vz+index)/(*(dencity + index));
-    	}
-    }
-}
 
 
 
-  write_vtkHeader( fp, xlength);
-  write_vtkPointCoordinates(fp, xlength);
-
-  fprintf(fp,"POINT_DATA %i \n", (xlength)*(xlength)*(xlength) );
-	
-  fprintf(fp,"\n");
-  fprintf(fp, "VECTORS velocity float\n");
-  for(k = 1; k<=xlength; k++){
-	for(j = 1; j <= xlength; j++) {
-    	for(i = 1; i <= xlength; i++) {
-    		int index = k*(xlength+2)*(xlength+2) + j*(xlength+2) + i;
-    		fprintf(fp, "%f %f %f \n", *(Vx+index), *(Vy+index), *(Vz+index));
-    		
-    }
-  }
-}
-
-  fprintf(fp,"\n");
-  fprintf(fp,"\n");
-  fprintf(fp, "SCALARS dencity float \n"); 
-  fprintf(fp, "LOOKUP_TABLE default \n");
-  for (k = 1; k<=xlength; k++){
-  	for(j = 1; j <=xlength; j++) {
-    	for(i = 1; i <= xlength; i++) {
-    		int index = k*(xlength+2)*(xlength+2) + j*(xlength+2) + i;
-      		fprintf(fp, "%f\n", *(dencity+index) );
-    }
-  }
-}
-
-  if( fclose(fp) )
-  {
-    char szBuff[80];
-    sprintf( szBuff, "Failed to close %s", szFileName );
-    ERROR( szBuff );
-  }
-  free(dencity);
-  free(Vx);
-  free(Vy);
-  free(Vz);
-}
-
-
+// Writing the header for the vtk file along with the header for point coordinates.
 void write_vtkHeader( FILE *fp, int xlength) {
   if( fp == NULL )		       
   {
@@ -110,7 +27,7 @@ void write_vtkHeader( FILE *fp, int xlength) {
   fprintf(fp,"\n");
 }
 
-
+// Writing the points of the coordinats to the vtk fle
 void write_vtkPointCoordinates( FILE *fp, int xlength ) {
   double originX = 0.0;  
   double originY = 0.0;
@@ -127,4 +44,104 @@ for(k = 1; k <= xlength; k++)
     }
   }
 }
+
+////////   ENTRY POINT here  ///////////
+void writeVtkOutput(const double * const collideField, const int * const flagField, const char * filename, unsigned int t, int xlength) {
+
+int i,j,k;
+
+// Allocating memory for printing values of density, velocity in x, velocity in y and velocity in z in VTK file.
+double* dencity = (double*) calloc((xlength+2)*(xlength+2)*(xlength+2),sizeof(double)) ;     
+double* Vx = (double*) calloc((xlength+2)*(xlength+2)*(xlength+2),sizeof(double)) ;
+double* Vy = (double*) calloc((xlength+2)*(xlength+2)*(xlength+2),sizeof(double)) ;
+double* Vz = (double*) calloc((xlength+2)*(xlength+2)*(xlength+2),sizeof(double)) ;
+  char szFileName[80];
+  FILE *fp=NULL;
+  sprintf( szFileName, "%s.%i.vtk", filename, t );
+  fp = fopen( szFileName, "w");
+  if( fp == NULL )		       
+  {
+    char szBuff[80];
+    sprintf( szBuff, "Failed to open %s", szFileName );
+    ERROR( szBuff );
+    return;
+  }
+
+//Velocity and density calculations
+for (k = 1; k<=xlength; k++){
+  	for(j = 1; j <=xlength; j++) {
+    	for(i = 1; i <= xlength; i++) {
+    		int index = k*(xlength+2)*(xlength+2) + j*(xlength+2) + i;
+    		for(int p = 0; p < 19; p++){
+    			*(dencity + index) = *(dencity + index) + collideField[19*(index) + p];
+    			*(Vx+ index) = *(Vx+index) + collideField[19*(index) + p]*LATTICEVELOCITIES[p][0];
+    			*(Vy+ index) = *(Vy+index) + collideField[19*(index) + p]*LATTICEVELOCITIES[p][1];
+    			*(Vz+ index) = *(Vz+index) + collideField[19*(index) + p]*LATTICEVELOCITIES[p][2];
+    		}
+    		*(Vx+index) = *(Vx+index)/(*(dencity + index));
+    		*(Vy+index) = *(Vy+index)/(*(dencity + index));
+    		*(Vz+index) = *(Vz+index)/(*(dencity + index));
+    	}
+    }
+}
+
+
+// Adding VTK headers
+  write_vtkHeader( fp, xlength);
+// Printing the coordinates of the domain
+  write_vtkPointCoordinates(fp, xlength);
+// Adding headers for velocity
+  fprintf(fp,"POINT_DATA %i \n", (xlength)*(xlength)*(xlength) );	
+  fprintf(fp,"\n");
+  fprintf(fp, "VECTORS velocity float\n");
+
+// Writing velocity to the VTK file.
+        for(k = 1; k <= xlength; k++) {
+	for(j = 1; j <= xlength; j++) {
+    	for(i = 1; i <= xlength; i++) {
+    		int index = k*(xlength+2)*(xlength+2) + j*(xlength+2) + i;
+    		fprintf(fp, "%f %f %f \n", *(Vx+index), *(Vy+index), *(Vz+index));
+    		
+    }
+  }
+}
+
+// Adding VTK header for density
+
+  fprintf(fp,"\n");
+  fprintf(fp,"\n");
+  fprintf(fp, "SCALARS dencity float \n"); 
+  fprintf(fp, "LOOKUP_TABLE default \n");
+
+// Writing density to the vtk file.
+        for(k = 1; k <=xlength; k++){
+  	for(j = 1; j <=xlength; j++) {
+    	for(i = 1; i <=xlength; i++) {
+    		int index = k*(xlength+2)*(xlength+2) + j*(xlength+2) + i;
+      		fprintf(fp, "%f\n", *(dencity+index) );
+    }
+  }
+}
+
+
+// Closing the generated file.
+  if( fclose(fp) )
+  {
+    char szBuff[80];
+    sprintf( szBuff, "Failed to close %s", szFileName );
+    ERROR( szBuff );
+  }
+
+// Freeing the memory allocated for density, velocity in x, velocity in y and velocity in z
+  free(dencity);
+  free(Vx);
+  free(Vy);
+  free(Vz);
+}
+
+
+
+
+
+
 

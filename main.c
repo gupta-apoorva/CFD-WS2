@@ -23,13 +23,20 @@ int main(int argc, char *argv[]){
 
     readParameters(&xlength, &tau, &velocityWall, &timesteps, &timestepsPerPlotting, argc, argv[1]);
     
-    collideField = (double*) malloc(Q*(xlength+2)*(xlength+2)*(xlength+2)*sizeof(double));     // Allocating the size on the heap for collidefield, streamfield and flagfield
+    // Allocating the size on the heap for collidefield, streamfield and flagfield
+     
+    collideField = (double*) malloc(Q*(xlength+2)*(xlength+2)*(xlength+2)*sizeof(double));     
     streamField = (double*) malloc(Q*(xlength+2)*(xlength+2)*(xlength+2)*sizeof(double));
     flagField = (int*) malloc((xlength+2)*(xlength+2)*(xlength+2)*sizeof(int));
 
-    initialiseFields(collideField, streamField, flagField, xlength);             // Initializing the collidefield, streamfield and flagfield with the function implemented 
-                                                                                 // in initLB
-   for(int t = 0; t < timesteps; t++)                                           // starting the time stepping loop to successively update the values in each cell.
+    // Initializing the collidefield, streamfield and flagfield with the function implemented in initLB
+    initialiseFields(collideField, streamField, flagField, xlength); 
+
+    // printing the initial conditions.            
+    writeVtkOutput(collideField,flagField,argv[1],0,xlength); 
+
+   // starting the time stepping loop to successively update the values in each cell.                                                                         
+   for(int t = 1; t <= timesteps; t++)                                           
       {
         double *swap = NULL;
         doStreaming(collideField,streamField,flagField,xlength);                // Streaming the values...Function immplemented in streaming.c
@@ -40,32 +47,16 @@ int main(int argc, char *argv[]){
         doCollision(collideField,flagField,&tau,xlength);                       // Doing the collision step of lattice boltzmann.
         treatBoundary(collideField,flagField,&velocityWall,xlength);            // Updating the boundary values in collide field based on the type of boundary. 
 
-/*for (int z =1;z<(xlength+1);z++)
-     {
-       for (int y =1;y<(xlength+1);y++)
-         {
-            for (int x =1;x<(xlength+1);x++)
-             {
-                 for( int i =0 ; i<Q ; i++)
-                  {
-                    printf("%f",collideField[Q*(z*(xlength+2)*(xlength+2) + y*(xlength+2) + x) + i]);
-                  }
-             printf("\n");
-             }
-         }
-      }
- printf("\n");*/
-
-       /* if(t % timestepsPerPlotting == 0)
+        if(t % timestepsPerPlotting == 0)
            {
-              writeVtkOutput(collideField,flagField,argv[0],t,xlength);
-           }*/
-
-   writeVtkOutput(collideField,flagField,argv[0],t,xlength);
-      }  
-    free(collideField);                                                          // Freeing the space allocated on heap for collidefield  streamfield and flagfield.
-    free (streamField);
-    free (flagField);
+              writeVtkOutput(collideField,flagField,argv[1],t,xlength);
+           }
+      }
+ 
+   // Freeing the space allocated on heap for collidefield  streamfield and flagfield.
+   free(collideField);                                                         
+   free (streamField);
+   free (flagField);
   return 0;
 }
 

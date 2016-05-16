@@ -6,6 +6,7 @@
   double feq[19];
   double* currentCell;
 
+// saving the pdf after the collision has taken place and the pdf has changed
 void computePostCollisionDistributions(double *currentCell, const double * const tau, const double *const feq)
 {
   for (int i= 0 ; i<19 ; i++)
@@ -15,7 +16,8 @@ void computePostCollisionDistributions(double *currentCell, const double * const
 
 }
 
-void doCollision(double *collideField, int *flagField,const double * const tau,int xlength)             // Starting the collide step of lattice boltzmann
+// Starting the collide step of lattice boltzmann
+void doCollision(double *collideField, int *flagField,const double * const tau,int xlength)             
 {
 
   
